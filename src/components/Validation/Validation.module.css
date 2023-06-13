@@ -1,3 +1,40 @@
+.Validation__Main {
+    padding-top: 32px;
+}
+
+.Validation__Main__Headline {
+    font-size: 18px;
+    margin-bottom: 26px;
+    color: white;
+    font-weight: 400;
+}
+
+.Validation__Form {
+    display: flex;
+    flex-direction: column;
+}
+
+.Validation__Form__UserWrapper {
+    display: flex;
+    gap: 34px;
+}
+
+.Validation__Form__Submit {
+    background-color: #026aac;
+    text-align: center;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    padding: 15px;
+    transition: 0.3s;
+    color: White;
+    border-radius: 6px;
+}
+
+.Validation__Form__Submit:hover {
+    opacity: 0.8;
+}
+
 .Validation__Form__Input {
     padding: 15px 18px;
     background-color: #475467;

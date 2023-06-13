@@ -1,0 +1,29 @@
+.Validation {
+    padding: 30px 40px 70px;
+    text-align: center;
+    background-color: #344054;
+    border-radius: 16px;
+}
+
+.Validation__Header {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Validation__Header__Logo {
+    margin-bottom: 16px;
+}
+
+.Validation__Header__Logo img {
+    width: 92px;
+}
+
+.Validation__Header__Headline {
+    max-width: 400px;
+    font-size: 24px;
+    color: white;
+    font-weight: 400;
+}
