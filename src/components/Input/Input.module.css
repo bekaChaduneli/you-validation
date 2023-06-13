@@ -1,0 +1,74 @@
+.Validation {
+    padding: 30px 40px 70px;
+    text-align: center;
+    background-color: #344054;
+    border-radius: 16px;
+}
+
+.Validation__Header {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.Validation__Header__Logo {
+    margin-bottom: 16px;
+}
+
+.Validation__Header__Logo img {
+    width: 92px;
+}
+
+.Validation__Header__Headline {
+    max-width: 400px;
+    font-size: 24px;
+    color: white;
+    font-weight: 400;
+}
+
+.Validation__Main {
+    padding-top: 32px;
+}
+
+.Validation__Main__Headline {
+    font-size: 18px;
+    margin-bottom: 26px;
+    color: white;
+    font-weight: 400;
+}
+.Validation__Form {
+    display: flex;
+    flex-direction: column;
+}
+.Validation__Form__Input {
+    padding: 15px 18px;
+    background-color: #475467;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.Validation__Form__Input::placeholder {
+    color: white;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.Validation__Form__Submit {
+    background-color: #026aac;
+    text-align: center;
+    font-weight: 700;
+    border: none;
+    outline: none;
+    padding: 15px;
+    transition: 0.3s;
+    color: White;
+    border-radius: 6px;
+}
+
+.Validation__Form__Submit:hover {
+    opacity: 0.8;
+}
