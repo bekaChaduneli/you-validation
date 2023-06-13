@@ -10,6 +10,7 @@ export default function Login({}) {
     };
     const LoginSubmit = (e) => {
         console.log(e);
+        localStorage.setItem(e, JSON.stringify(e));
     };
     return (
         <div className={styles.Validation__Main}>
@@ -38,8 +39,8 @@ export default function Login({}) {
                                         [styles[
                                             "Validation__Form__Input--error"
                                         ]]:
-                                            formik.touched.name &&
-                                            formik.errors.name,
+                                            formik.touched.email &&
+                                            formik.errors.email,
                                     }
                                 )}
                                 type="email"
@@ -61,8 +62,8 @@ export default function Login({}) {
                                         [styles[
                                             "Validation__Form__Input--error"
                                         ]]:
-                                            formik.touched.name &&
-                                            formik.errors.name,
+                                            formik.touched.password &&
+                                            formik.errors.password,
                                     }
                                 )}
                                 onBlur={formik.handleBlur}

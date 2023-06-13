@@ -9,10 +9,12 @@ export default function Register({ setActiveForm }) {
         lastname: "",
         email: "",
         password: "",
-        repeatfirstname: "",
+        repeatpassword: "",
     };
     const RegisterSubmit = (e) => {
         console.log(e);
+        setActiveForm("login");
+        localStorage.setItem(e, JSON.stringify(e));
     };
     return (
         <div className={styles.Validation__Main}>
@@ -144,22 +146,22 @@ export default function Register({ setActiveForm }) {
                                 placeholder="Repeat Password"
                                 type="password"
                                 onBlur={formik.handleBlur}
-                                name="repeatfirstname"
-                                id="repeatfirstname"
+                                name="repeatpassword"
+                                id="repeatpassword"
                                 className={classNames(
                                     styles.Validation__Form__Input,
                                     {
                                         [styles[
                                             "Validation__Form__Input--error"
                                         ]]:
-                                            formik.touched.repeatfirstname &&
-                                            formik.errors.repeatfirstname,
+                                            formik.touched.repeatpassword &&
+                                            formik.errors.repeatpassword,
                                     }
                                 )}
                             />
                             <ErrorMessage
                                 className={styles.Validation__Form__ErrorText}
-                                name="repeatfirstname"
+                                name="repeatpassword"
                                 component="div"
                             />
                         </div>
