@@ -15,10 +15,7 @@ export const registerSchema = yup.object().shape({
         .min(6)
         .max(22)
         .required("Password is required!")
-        .matches(
-            passwordRegex,
-            "Password should be minimum 8 characters length!"
-        ),
+        .matches(passwordRegex, "Password isn't valid!"),
     repeatpassword: yup
         .string()
         .min(6)

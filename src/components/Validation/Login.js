@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Input from "../Input/Input";
+import React from "react";
 import styles from "./Validation.module.css";
 import { Formik, Field, ErrorMessage } from "formik";
-import {
-    setErrors,
-    setActiveForm,
-    errors,
-    loginSchema,
-} from "@/Validations/UserValidation";
+import { setActiveForm, loginSchema } from "@/Validations/UserValidation";
 import classNames from "classnames";
-export default function Login({ errors, setErrors, valid, setValid }) {
+export default function Login({}) {
     let initialValues = {
         email: "",
         password: "",
     };
-    const LoginSubmit = async (e) => {
-        e.preventDefault();
+    const LoginSubmit = (e) => {
+        console.log(e);
     };
     return (
         <div className={styles.Validation__Main}>
@@ -25,13 +19,11 @@ export default function Login({ errors, setErrors, valid, setValid }) {
             <Formik
                 initialValues={initialValues}
                 validationSchema={loginSchema}
-                onSubmit={(value) => {
-                    console.log(value);
-                }}
+                onSubmit={LoginSubmit}
             >
                 {(formik) => (
                     <form
-                        onSubmit={LoginSubmit}
+                        onSubmit={formik.handleSubmit}
                         className={styles.Validation__Form}
                     >
                         <div className={styles.Validation__Form__InputWrapper}>
@@ -41,7 +33,14 @@ export default function Login({ errors, setErrors, valid, setValid }) {
                                 name="email"
                                 id="email"
                                 className={classNames(
-                                    styles.Validation__Form__Input
+                                    styles.Validation__Form__Input,
+                                    {
+                                        [styles[
+                                            "Validation__Form__Input--error"
+                                        ]]:
+                                            formik.touched.name &&
+                                            formik.errors.name,
+                                    }
                                 )}
                                 type="email"
                             />
@@ -57,7 +56,14 @@ export default function Login({ errors, setErrors, valid, setValid }) {
                                 id="password"
                                 name="password"
                                 className={classNames(
-                                    styles.Validation__Form__Input
+                                    styles.Validation__Form__Input,
+                                    {
+                                        [styles[
+                                            "Validation__Form__Input--error"
+                                        ]]:
+                                            formik.touched.name &&
+                                            formik.errors.name,
+                                    }
                                 )}
                                 onBlur={formik.handleBlur}
                                 type="password"

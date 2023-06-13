@@ -1,100 +1,178 @@
 import React from "react";
 import styles from "./Validation.module.css";
-import Input from "../Input/Input";
+import { Formik, Field, ErrorMessage } from "formik";
 import { registerSchema } from "@/Validations/UserValidation";
-export default function Register({ errors, setErrors, setActiveForm }) {
-    const RegisterSubmit = async (e) => {
-        e.preventDefault();
-        setActiveForm("login");
-        let formData = {
-            firstname: e.target[0].value,
-            lastname: e.target[1].value,
-            email: e.target[2].value,
-            password: e.target[3].value,
-            repeatpassword: e.target[4].value,
-        };
-        try {
-            await registerSchema.validate(formData, { abortEarly: false });
-            setErrors({});
-        } catch (error) {
-            // console.log(error.errors);
-            setErrors(
-                error.inner.reduce((acc, currError) => {
-                    // console.log(currError.path);
-                    acc[currError.path] = currError.message;
-                    return acc;
-                }, {})
-            );
-        }
-        // let firstName = {
-        //     firstname: e.target[0].value,
-        // };
-        // let lastName = {
-        //     lastname: e.target[1].value,
-        // };
-        // let Email = {
-        //     email: e.target[2].value,
-        // };
-        // let Password = {
-        //     password: e.target[3].value,
-        // };
-        // let Repeatpassword = {
-        //     repeatpassword: e.target[4].value,
-        // };
-        // if (await registerSchema.isValid(formData)) {
-        //     setNewUserInfo(formData);
-        //     setValid(true);
-        // } else {
-        //     !(await validFirstname.isValid(firstName))
-        //         ? setError("first name isn't valid")
-        //         : !(await validLastname.isValid(lastName))
-        //         ? setError("last name isn't valid")
-        //         : !(await validEmail.isValid(Email))
-        //         ? setError("email isn't valid")
-        //         : !(await validPassword.isValid(Password))
-        //         ? setError("password isn't valid")
-        //         : !(await validRepeatPassword.isValid(Repeatpassword))
-        //         ? setError("password isn't correct")
-        //         : setError("");
-        // }
+import classNames from "classnames";
+export default function Register({ setActiveForm }) {
+    let initialValues = {
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        repeatfirstname: "",
+    };
+    const RegisterSubmit = (e) => {
+        console.log(e);
     };
     return (
         <div className={styles.Validation__Main}>
             <h3 className={styles.Validation__Main__Headline}>
                 სისტემაში რეგისტრაცია
             </h3>
-            <form onSubmit={RegisterSubmit} className={styles.Validation__Form}>
-                <div className={styles.Validation__Form__UserWrapper}>
-                    <Input
-                        placeholder="First Name"
-                        type="text"
-                        error={errors?.firstname}
-                    />
-                    <Input
-                        placeholder="Last Name"
-                        type="text"
-                        error={errors?.lastname}
-                    />
-                </div>
-                <Input placeholder="Email" type="email" error={errors?.email} />
-                <Input
-                    placeholder="Password"
-                    type="password"
-                    error={errors?.password}
-                />
-                <Input
-                    placeholder="Repeat Password"
-                    type="password"
-                    error={errors?.repeatpassword}
-                />
-                <button
-                    type="submit"
-                    onClick={(e) => e.preventDefault}
-                    className={styles.Validation__Form__Submit}
-                >
-                    რეგისტრაცია
-                </button>
-            </form>
+            <Formik
+                initialValues={initialValues}
+                validationSchema={registerSchema}
+                onSubmit={RegisterSubmit}
+            >
+                {(formik) => (
+                    <form
+                        onSubmit={formik.handleSubmit}
+                        className={styles.Validation__Form}
+                    >
+                        <div className={styles.Validation__Form__UserWrapper}>
+                            <div
+                                className={
+                                    styles.Validation__Form__InputWrapper
+                                }
+                            >
+                                <Field
+                                    placeholder="First Name"
+                                    type="text"
+                                    onBlur={formik.handleBlur}
+                                    name="firstname"
+                                    id="firstname"
+                                    className={classNames(
+                                        styles.Validation__Form__Input,
+                                        {
+                                            [styles[
+                                                "Validation__Form__Input--error"
+                                            ]]:
+                                                formik.touched.firstname &&
+                                                formik.errors.firstname,
+                                        }
+                                    )}
+                                />
+                                <ErrorMessage
+                                    className={
+                                        styles.Validation__Form__ErrorText
+                                    }
+                                    name="firstname"
+                                    component="div"
+                                />
+                            </div>
+                            <div
+                                className={
+                                    styles.Validation__Form__InputWrapper
+                                }
+                            >
+                                <Field
+                                    placeholder="Last Name"
+                                    type="text"
+                                    onBlur={formik.handleBlur}
+                                    name="lastname"
+                                    id="lastname"
+                                    className={classNames(
+                                        styles.Validation__Form__Input,
+                                        {
+                                            [styles[
+                                                "Validation__Form__Input--error"
+                                            ]]:
+                                                formik.touched.lastname &&
+                                                formik.errors.lastname,
+                                        }
+                                    )}
+                                />
+                                <ErrorMessage
+                                    className={
+                                        styles.Validation__Form__ErrorText
+                                    }
+                                    name="lastname"
+                                    component="div"
+                                />
+                            </div>
+                        </div>
+                        <div className={styles.Validation__Form__InputWrapper}>
+                            <Field
+                                placeholder="Email"
+                                type="email"
+                                onBlur={formik.handleBlur}
+                                name="email"
+                                id="email"
+                                className={classNames(
+                                    styles.Validation__Form__Input,
+                                    {
+                                        [styles[
+                                            "Validation__Form__Input--error"
+                                        ]]:
+                                            formik.touched.email &&
+                                            formik.errors.email,
+                                    }
+                                )}
+                            />
+                            <ErrorMessage
+                                className={styles.Validation__Form__ErrorText}
+                                name="email"
+                                component="div"
+                            />
+                        </div>
+                        <div className={styles.Validation__Form__InputWrapper}>
+                            <Field
+                                placeholder="Password"
+                                type="password"
+                                onBlur={formik.handleBlur}
+                                name="password"
+                                id="password"
+                                className={classNames(
+                                    styles.Validation__Form__Input,
+                                    {
+                                        [styles[
+                                            "Validation__Form__Input--error"
+                                        ]]:
+                                            formik.touched.password &&
+                                            formik.errors.password,
+                                    }
+                                )}
+                            />
+                            <ErrorMessage
+                                className={styles.Validation__Form__ErrorText}
+                                name="password"
+                                component="div"
+                            />
+                        </div>
+                        <div className={styles.Validation__Form__InputWrapper}>
+                            <Field
+                                placeholder="Repeat Password"
+                                type="password"
+                                onBlur={formik.handleBlur}
+                                name="repeatfirstname"
+                                id="repeatfirstname"
+                                className={classNames(
+                                    styles.Validation__Form__Input,
+                                    {
+                                        [styles[
+                                            "Validation__Form__Input--error"
+                                        ]]:
+                                            formik.touched.repeatfirstname &&
+                                            formik.errors.repeatfirstname,
+                                    }
+                                )}
+                            />
+                            <ErrorMessage
+                                className={styles.Validation__Form__ErrorText}
+                                name="repeatfirstname"
+                                component="div"
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            className={styles.Validation__Form__Submit}
+                        >
+                            რეგისტრაცია
+                        </button>
+                    </form>
+                )}
+            </Formik>
         </div>
     );
 }
