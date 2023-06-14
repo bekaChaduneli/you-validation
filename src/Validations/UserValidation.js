@@ -36,19 +36,3 @@ export const loginSchema = yup.object().shape({
         .required("Password is required!")
         .matches(passwordRegex, "password isn't valid!"),
 });
-
-// export const validFirstname = yup
-//     .object()
-//     .shape({ firstname: yup.string().required() });
-// export const validLastname = yup
-//     .object()
-//     .shape({ lastname: yup.string().required() });
-// export const validEmail = yup
-//     .object()
-//     .shape({ email: yup.string().email().required() });
-// export const validPassword = yup
-//     .object()
-//     .shape({ password: yup.string().min(6).required() });
-// export const validRepeatPassword = yup
-//     .object()
-//     .shape({ repeatpassword: yup.string().min(6).max(22).required() });

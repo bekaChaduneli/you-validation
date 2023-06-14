@@ -1,5 +1,4 @@
 "use client";
-import Form from "@/components/Form/Form";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import Authorized from "@/components/Authorized/Authorized";

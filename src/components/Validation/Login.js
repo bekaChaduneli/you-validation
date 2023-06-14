@@ -1,16 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Validation.module.css";
 import Cookies from "js-cookie";
-import { Formik, Field, ErrorMessage } from "formik";
+import { Formik, Field, ErrorMessage, useFormik } from "formik";
 import { setActiveForm, loginSchema } from "@/Validations/UserValidation";
 import classNames from "classnames";
 export default function Login({ setJoinedUser, setActiveForm }) {
     const [mailEr, setMailEr] = useState(false);
     const [passEr, setPassEr] = useState(false);
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
     let initialValues = {
         email: "",
         password: "",
     };
+    const onChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+    useEffect(() => {
+        const storedFormData = sessionStorage.getItem("formData");
+        if (storedFormData) {
+            setFormData(JSON.parse(storedFormData));
+        }
+        const handleBeforeUnload = (event) => {
+            if (storedFormData) {
+                event.preventDefault();
+                event.returnValue = "";
+            }
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+        };
+    }, []);
+    useEffect(() => {
+        sessionStorage.setItem("formData", JSON.stringify(formData));
+    }, [formData]);
+
     const LoginSubmit = (e) => {
         let user = localStorage.getItem(e.email);
         let parsedUser = user !== null ? JSON.parse(user) : null;
@@ -42,6 +72,7 @@ export default function Login({ setJoinedUser, setActiveForm }) {
                 {(formik) => (
                     <form
                         onSubmit={formik.handleSubmit}
+                        onChange={onChange}
                         className={styles.Validation__Form}
                     >
                         <div className={styles.Validation__Form__InputWrapper}>
@@ -50,6 +81,7 @@ export default function Login({ setJoinedUser, setActiveForm }) {
                                 onBlur={formik.handleBlur}
                                 name="email"
                                 id="email"
+                                value={formData.email}
                                 className={classNames(
                                     styles.Validation__Form__Input,
                                     {
@@ -83,6 +115,7 @@ export default function Login({ setJoinedUser, setActiveForm }) {
                                 placeholder="Password"
                                 id="password"
                                 name="password"
+                                value={formData.password}
                                 className={classNames(
                                     styles.Validation__Form__Input,
                                     {
