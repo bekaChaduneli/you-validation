@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { Formik, Field, ErrorMessage, useFormik } from "formik";
 import { setActiveForm, loginSchema } from "@/Validations/UserValidation";
 import classNames from "classnames";
+import { useRouter } from "next/router";
 export default function Login({ setJoinedUser, setActiveForm }) {
     const [mailEr, setMailEr] = useState(false);
     const [passEr, setPassEr] = useState(false);
@@ -25,10 +26,9 @@ export default function Login({ setJoinedUser, setActiveForm }) {
             setFormData(JSON.parse(storedFormData));
         }
         const handleBeforeUnload = (event) => {
-            if (storedFormData) {
-                event.preventDefault();
-                event.returnValue = "";
-            }
+            console.log("aa");
+            event.preventDefault();
+            event.returnValue = "";
         };
 
         window.addEventListener("beforeunload", handleBeforeUnload);

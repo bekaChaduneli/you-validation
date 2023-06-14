@@ -3,7 +3,7 @@ import Login from "../Validation/Login";
 import Register from "../Validation/Register";
 import styles from "./Form.module.css";
 export default function Form({ setJoinedUser }) {
-    const [activeForm, setActiveForm] = useState("login");
+    const [activeForm, setActiveForm] = useState("register");
     const [newUserInfo, setNewUserInfo] = useState();
     return (
         <div className={styles.Validation}>
