@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Validation.module.css";
+import Cookies from "js-cookie";
 import { Formik, Field, ErrorMessage } from "formik";
 import { setActiveForm, loginSchema } from "@/Validations/UserValidation";
 import classNames from "classnames";
-export default function Login({}) {
+export default function Login({ setJoinedUser }) {
+    const [mailEr, setMailEr] = useState(false);
+    const [passEr, setPassEr] = useState(false);
     let initialValues = {
         email: "",
         password: "",
     };
     const LoginSubmit = (e) => {
-        console.log(e);
-        localStorage.setItem(e, JSON.stringify(e));
+        let user = localStorage.getItem(e.email);
+        let parsedUser = user !== null ? JSON.parse(user) : null;
+        let password = parsedUser ? parsedUser.email : null;
+        if (user === null) {
+            setMailEr(true);
+        }
+        if (password === null || password === undefined) {
+            setPassEr(true);
+        } else {
+            setMailEr(false);
+            setPassEr(false);
+            setJoinedUser(true);
+            Cookies.set("user", JSON.stringify(e.email), { expires: 1 });
+        }
     };
     return (
         <div className={styles.Validation__Main}>
@@ -39,8 +54,9 @@ export default function Login({}) {
                                         [styles[
                                             "Validation__Form__Input--error"
                                         ]]:
-                                            formik.touched.email &&
-                                            formik.errors.email,
+                                            (formik.touched.email &&
+                                                formik.errors.email) ||
+                                            mailEr,
                                     }
                                 )}
                                 type="email"
@@ -50,6 +66,15 @@ export default function Login({}) {
                                 name="email"
                                 component="div"
                             />
+                            {mailEr && (
+                                <div
+                                    className={
+                                        styles.Validation__Form__ErrorText
+                                    }
+                                >
+                                    mail could not be found
+                                </div>
+                            )}
                         </div>
                         <div className={styles.Validation__Form__InputWrapper}>
                             <Field
@@ -62,8 +87,9 @@ export default function Login({}) {
                                         [styles[
                                             "Validation__Form__Input--error"
                                         ]]:
-                                            formik.touched.password &&
-                                            formik.errors.password,
+                                            (formik.touched.password &&
+                                                formik.errors.password) ||
+                                            passEr,
                                     }
                                 )}
                                 onBlur={formik.handleBlur}
@@ -74,6 +100,15 @@ export default function Login({}) {
                                 name="password"
                                 component="div"
                             />
+                            {passEr && (
+                                <div
+                                    className={
+                                        styles.Validation__Form__ErrorText
+                                    }
+                                >
+                                    password could not be found
+                                </div>
+                            )}
                         </div>
                         <button
                             type="submit"

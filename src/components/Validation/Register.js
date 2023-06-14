@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Validation.module.css";
 import { Formik, Field, ErrorMessage } from "formik";
 import { registerSchema } from "@/Validations/UserValidation";
 import classNames from "classnames";
-export default function Register({ setActiveForm }) {
+export default function Register({ activeForm, setActiveForm }) {
+    const [mailEr, setMailEr] = useState(false);
     let initialValues = {
         firstname: "",
         lastname: "",
@@ -12,9 +13,14 @@ export default function Register({ setActiveForm }) {
         repeatpassword: "",
     };
     const RegisterSubmit = (e) => {
-        console.log(e);
-        setActiveForm("login");
-        localStorage.setItem(e, JSON.stringify(e));
+        let user = localStorage.getItem(e.email);
+        if (user !== null) {
+            setMailEr(true);
+        } else {
+            setMailEr(false);
+            localStorage.setItem(e.email, JSON.stringify(e));
+            setActiveForm("login");
+        }
     };
     return (
         <div className={styles.Validation__Main}>
@@ -106,8 +112,9 @@ export default function Register({ setActiveForm }) {
                                         [styles[
                                             "Validation__Form__Input--error"
                                         ]]:
-                                            formik.touched.email &&
-                                            formik.errors.email,
+                                            (formik.touched.email &&
+                                                formik.errors.email) ||
+                                            mailEr,
                                     }
                                 )}
                             />
@@ -116,6 +123,15 @@ export default function Register({ setActiveForm }) {
                                 name="email"
                                 component="div"
                             />
+                            {mailEr && (
+                                <div
+                                    className={
+                                        styles.Validation__Form__ErrorText
+                                    }
+                                >
+                                    mail is already used
+                                </div>
+                            )}
                         </div>
                         <div className={styles.Validation__Form__InputWrapper}>
                             <Field

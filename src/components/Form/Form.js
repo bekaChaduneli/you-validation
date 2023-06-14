@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import Login from "../Validation/Login";
 import Register from "../Validation/Register";
 import styles from "./Form.module.css";
-export default function Form() {
-    const [activeForm, setActiveForm] = useState("register");
+export default function Form({ setJoinedUser }) {
+    const [activeForm, setActiveForm] = useState("login");
     const [newUserInfo, setNewUserInfo] = useState();
-
     return (
         <div className={styles.Validation}>
             <div className={styles.xd}>
@@ -18,15 +17,13 @@ export default function Form() {
             </div>
             {activeForm === "register" ? (
                 <Register
+                    activeForm={activeForm}
                     setActiveForm={setActiveForm}
                     setNewUserInfo={setNewUserInfo}
                 />
             ) : (
                 activeForm === "login" && (
-                    <Login
-                        setNewUserInfo={setNewUserInfo}
-                        setActiveForm={setActiveForm}
-                    />
+                    <Login setJoinedUser={setJoinedUser} />
                 )
             )}
         </div>
