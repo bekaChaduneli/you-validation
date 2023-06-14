@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { Formik, Field, ErrorMessage } from "formik";
 import { setActiveForm, loginSchema } from "@/Validations/UserValidation";
 import classNames from "classnames";
-export default function Login({ setJoinedUser }) {
+export default function Login({ setJoinedUser, setActiveForm }) {
     const [mailEr, setMailEr] = useState(false);
     const [passEr, setPassEr] = useState(false);
     let initialValues = {
@@ -24,7 +24,9 @@ export default function Login({ setJoinedUser }) {
             setMailEr(false);
             setPassEr(false);
             setJoinedUser(true);
-            Cookies.set("user", JSON.stringify(e.email), { expires: 1 });
+            Cookies.set("user", JSON.stringify(e.email), {
+                expires: 5 / (24 * 60),
+            });
         }
     };
     return (
@@ -116,6 +118,14 @@ export default function Login({ setJoinedUser }) {
                         >
                             შესვლა
                         </button>
+                        <p
+                            onClick={() => {
+                                setActiveForm("register");
+                            }}
+                            className={styles.Validation__Form__SignUpLink}
+                        >
+                            Do you have not accout? Sign Up
+                        </p>
                     </form>
                 )}
             </Formik>

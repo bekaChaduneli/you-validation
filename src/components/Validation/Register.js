@@ -188,6 +188,14 @@ export default function Register({ activeForm, setActiveForm }) {
                         >
                             რეგისტრაცია
                         </button>
+                        <p
+                            onClick={() => {
+                                setActiveForm("login");
+                            }}
+                            className={styles.Validation__Form__SignUpLink}
+                        >
+                            Do you have accout? Sign In
+                        </p>
                     </form>
                 )}
             </Formik>

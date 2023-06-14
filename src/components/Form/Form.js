@@ -23,7 +23,10 @@ export default function Form({ setJoinedUser }) {
                 />
             ) : (
                 activeForm === "login" && (
-                    <Login setJoinedUser={setJoinedUser} />
+                    <Login
+                        setActiveForm={setActiveForm}
+                        setJoinedUser={setJoinedUser}
+                    />
                 )
             )}
         </div>

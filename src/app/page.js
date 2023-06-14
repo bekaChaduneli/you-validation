@@ -2,6 +2,7 @@
 import Form from "@/components/Form/Form";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import Authorized from "@/components/Authorized/Authorized";
 
 export default function Home() {
     const [joinedUser, setJoinedUser] = useState(false);
@@ -10,12 +11,10 @@ export default function Home() {
         name ? setJoinedUser(true) : setJoinedUser(false);
     }, []);
     return (
-        <>
-            {joinedUser ? (
-                <>შესული ხარ</>
-            ) : (
-                <Form setJoinedUser={setJoinedUser} />
-            )}
-        </>
+        <Authorized
+            joinedUser={joinedUser}
+            setJoinedUser={setJoinedUser}
+            name={name}
+        />
     );
 }
