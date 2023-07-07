@@ -2,7 +2,7 @@
 import Cookies from "js-cookie";
 import React, { useEffect } from "react";
 
-export default function page() {
+export default function Page() {
     const name = Cookies.get("user");
     useEffect(() => {
         if (!name) window.location.href = "/";
